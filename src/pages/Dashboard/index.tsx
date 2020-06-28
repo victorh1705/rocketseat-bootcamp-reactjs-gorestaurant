@@ -39,7 +39,6 @@ const Dashboard: React.FC = () => {
   ): Promise<void> {
     try {
       const { description, name, image, price } = food;
-      Object.assign(food, { available: true });
       api
         .post('/foods', {
           id: foods.length + 1,
@@ -64,7 +63,13 @@ const Dashboard: React.FC = () => {
   }
 
   async function handleDeleteFood(id: number): Promise<void> {
-    // TODO DELETE A FOOD PLATE FROM THE API
+    try {
+      api.delete(`/foods/${id}`).then(response => {
+        setFoods(prevState => prevState.filter(value => value.id !== id));
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   function toggleModal(): void {
