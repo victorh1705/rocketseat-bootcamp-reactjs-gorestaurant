@@ -81,7 +81,27 @@ const Dashboard: React.FC = () => {
   }
 
   function handleEditFood(food: IFoodPlate): void {
-    // TODO SET THE CURRENT EDITING FOOD ID IN THE STATE
+    try {
+      const { id, name, available, description, price, image } = food;
+      api
+        .put(`/foods/${id}`, {
+          id,
+          name,
+          description,
+          price,
+          available,
+          image,
+        })
+        .then(response => {
+          setFoods(prevState =>
+            prevState.map(value =>
+              value.id === response.data.id ? response.data : value,
+            ),
+          );
+        });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (
