@@ -28,16 +28,15 @@ const Food: React.FC<IProps> = ({
 
   async function toggleAvailable(): Promise<void> {
     try {
-      Object.assign(food, { available: !food.available });
-      handleEditFood(food);
-      setIsAvailable(prevState => !prevState);
+      Object.assign(food, { available: !isAvailable });
+      setIsAvailable(food.available);
     } catch (e) {
       console.log(e);
     }
   }
 
   function setEditingFood(): void {
-    // TODO - SET THE ID OF THE CURRENT ITEM TO THE EDITING FOOD AND OPEN MODAL
+    handleEditFood(food);
   }
 
   return (
